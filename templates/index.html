@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Book Search
+{% endblock %}
+
+{% block body %}
+<main>
+  <div class="album py-5 bg-body-tertiary">
+    <div class="container">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        {% for book in books %}
+        <div class="col">
+          <div class="card shadow-sm">
+            <!-- Картинка книги -->
+           <img src="{{ url_for('static', filename='images/' + (book.title | replace(' ', '_') | replace("'", '') | replace('"', '') | default('default_image')).lower() + '.jpg') }}" alt="{{ book.title }}" class="card-img-top border" style="width: 100%; height: 225px; object-fit: cover;">
+
+
+
+
+            <div class="card-body">
+              <p class="card-text">{{ book.title }}</p>
+              <div class="d-flex flex-column align-items-center">
+                <!-- Кнопка Buy -->
+                <a href="{{ url_for('checkout', book_id=book.id) }}" class="btn btn-primary btn-sm mb-2" style="width: 140px; height: 40px; font-size: 14px;">Buy</a>
+
+                <!-- Кнопка Add (now black) -->
+                <a href="{{ url_for('add_to_cart', book_id=book.id) }}" class="btn btn-dark btn-sm" style="width: 140px; height: 40px; font-size: 14px;">
+                  <i class="bi bi-plus" style="font-size: 18px;"></i> Add
+                </a>
+              </div>
+              <small class="text-body-secondary">{{ book.price }} USD</small>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}
+
+
+
+
+
+
+
+
+

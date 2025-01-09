@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block content %}
+  <style>
+    /* Центрируем форму логина/регистрации */
+    .form-signin {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 1.5rem;
+      border-radius: 8px;
+      background-color: #fff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-signin .form-floating {
+      margin-bottom: 1rem;
+    }
+
+    .form-signin h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .btn-warning, .btn-outline-light {
+      width: 100%;
+      margin-top: 10px; /* Добавим небольшой отступ сверху */
+    }
+  </style>
+
+  <main class="form-signin w-100 m-auto">
+    <form method="POST" action="{{ url_for('signup') }}">
+      <h1 class="h3 mb-3 fw-normal">Create an account</h1>
+
+      <div class="form-floating">
+        <input type="text" name="username" class="form-control" id="floatingUsername" placeholder="Username" required>
+        <label for="floatingUsername">Username</label>
+      </div>
+
+      <div class="form-floating">
+        <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password" required>
+        <label for="floatingPassword">Password</label>
+      </div>
+
+      <div class="form-floating">
+        <input type="password" name="confirm_password" class="form-control" id="floatingConfirmPassword" placeholder="Confirm Password" required>
+        <label for="floatingConfirmPassword">Confirm Password</label>
+      </div>
+
+      <button class="w-100 btn btn-lg btn-warning" type="submit">Sign Up</button>
+    </form>
+  </main>
+
+{% endblock %}
+
+

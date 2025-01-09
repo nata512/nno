@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">  <!-- Добавление иконок Bootstrap -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  <title>{% block title %}{% endblock %}</title>
+</head>
+<body class="bg-body-tertiary">
+
+  {% if request.endpoint not in ['login', 'signup'] %}
+    <!-- Если текущая страница не login и не signup, отображаем шапку -->
+    <header class="p-3 text-bg-dark">
+      <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-between">
+
+          <!-- Добавим надпись "Book Haven" в левом углу -->
+          <a href="{{ url_for('index') }}" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none" style="font-size: 24px; font-weight: bold; margin-right: 20px;">
+            Book Haven
+          </a>
+
+          <!-- Иконка аккаунта (чата) -->
+          {% if current_user.is_authenticated %}
+            <a href="{{ url_for('account') }}" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none" style="margin-right: 20px;">
+              <i class="bi bi-person" style="font-size: 30px;"></i> <!-- Иконка аккаунта -->
+            </a>
+          {% else %}
+            <a href="{{ url_for('login') }}" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none" style="margin-right: 20px;">
+              <i class="bi bi-person" style="font-size: 30px;"></i> <!-- Иконка аккаунта для неавторизованных -->
+            </a>
+          {% endif %}
+
+          <!-- Иконка корзины -->
+          <a href="{{ url_for('cart') }}" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+            <i class="bi bi-basket" style="font-size: 30px;"></i> <!-- Иконка корзины -->
+          </a>
+
+          <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+            <li><a href="{{ url_for('index') }}" class="nav-link px-2 text-secondary">Home</a></li>
+            <li><a href="{{ url_for('about') }}" class="nav-link px-2 text-white">About</a></li>
+          </ul>
+
+          <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" method="get" action="/">
+            <input type="search" name="search" class="form-control form-control-dark text-bg-dark" placeholder="Search for a book..." value="{{ search_query }}">
+          </form>
+
+          <div class="text-end">
+            {% if current_user.is_authenticated %}
+              <!-- Если пользователь авторизован -->
+              <a href="{{ url_for('logout') }}" class="btn btn-outline-light me-2">Logout</a>
+            {% else %}
+              <!-- Если пользователь не авторизован -->
+              <a href="{{ url_for('login') }}" class="btn btn-outline-light me-2">Login</a>
+              <a href="{{ url_for('signup') }}" class="btn btn-warning">Sign-up</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </header>
+  {% endif %}
+
+  {% block body %}
+    <!-- Добавим container для страницы логина или регистрации -->
+    <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+      {% block content %}{% endblock %}
+    </div>
+  {% endblock %}
+
+</body>
+</html>
+
+
+

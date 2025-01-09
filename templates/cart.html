@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Cart{% endblock %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h1 class="mb-4">Your Cart</h1>
+
+    {% if cart_books %}
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Items in your cart:</h5>
+          <ul class="list-group mb-3">
+            {% for book in cart_books %}
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{ book.title }}
+                <span class="badge bg-primary rounded-pill">{{ book.price }} USD</span>
+                <div class="d-flex">
+                  <!-- Remove Button -->
+                  <form action="{{ url_for('remove_from_cart', book_id=book.id) }}" method="post">
+                    <button type="submit" class="btn btn-danger btn-sm me-2">Remove</button>
+                  </form>
+                </div>
+              </li>
+            {% endfor %}
+          </ul>
+          <h4 class="mt-4">Total: <span class="badge bg-success">{{ total_price }} USD</span></h4>
+          <div class="mt-4">
+            <a href="{{ url_for('checkout', book_id=cart_books[0].id) }}" class="btn btn-warning btn-lg">Proceed to Checkout</a>
+          </div>
+        </div>
+      </div>
+    {% else %}
+      <div class="alert alert-info">
+        <p>Your cart is empty.</p>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}
+
+
+
