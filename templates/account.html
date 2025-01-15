@@ -17,7 +17,7 @@
               <h5>Manage Account:</h5>
               <ul class="list-group">
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                  <form method="POST">
+                  <form action="{{ url_for('delete_account') }}" method="POST">
                     <button type="submit" class="btn btn-outline-danger btn-sm">Delete Account</button>
                   </form>
                 </li>
